@@ -1,14 +1,14 @@
-// src/App.jsx
+//다른 파일에서 만든 ui 컴포넌트 불러오기 
 import Gauge, { Counter } from "./components/Gauge.jsx";
 import PipelineBars from "./components/PipelineBars.jsx";
 import SystemRings from "./components/SystemRings.jsx";
 import IndexTable from "./components/IndexTable.jsx";
 
-export default function App() {
-  const monitoring = { status: "YELLOW", nodes: 1, activeShards: 1 };
-  const indexState = { health: "YELLOW", index: "product_index", docs: 2, storeBytes: 7658 };
-  const pipelines  = { workers: 2, batchSize: 125, batchDelay: 50, autoReload: false };
-  const system     = { cpuPct: -100.0, memUsedMB: 49.7, memFreeMB: 30.3 };
+export default function App() { //상태값 정의
+  const monitoring = { status: "YELLOW", nodes: 1, activeShards: 1 }; //상태, 노드개수, 샤드 개수
+  const indexState = { health: "YELLOW", index: "product_index", docs: 2, storeBytes: 7658 }; //health, 인덱스명, 문서수, 저장소 크기
+  const pipelines  = { workers: 2, batchSize: 125, batchDelay: 50, autoReload: false }; //workers, 배치크기, 지연시간, 자동 리로드 여부
+  const system     = { cpuPct: -100.0, memUsedMB: 49.7, memFreeMB: 30.3 }; //cpu 퍼센트, 사용된 메모리, 남은 메모리
 
 
   
@@ -16,12 +16,13 @@ export default function App() {
     monitoring.status === "GREEN" ? "#10b981" :
     monitoring.status === "RED"   ? "#ef4444" : "#f59e0b";
 
-  return (
+  return (  //전체 대시보드 스타일
     <div style={{ padding: 24, fontFamily: "system-ui, sans-serif", color: "#111", background:"#f8fafc" }}>
-      <h1 style={{ fontSize: 22, fontWeight: 800, marginBottom: 12 }}>U2-INDEX 관리 대시보드</h1>
+      <h1 style={{ fontSize: 22, fontWeight: 800, marginBottom: 12 }}>U2-INDEX 관리 대시보드</h1> 
 
       <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:24, marginBottom:24 }}>
-        <section style={card}>
+
+        <section style={card}> 
           <h2 style={title}>인덱스 모니터링</h2>
           <div style={{ display:"flex", gap:28, alignItems:"center" }}>
             <div>
@@ -46,7 +47,8 @@ export default function App() {
 
       <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:24 }}>
         <section style={card}>
-  <h2 style={title}>파이프라인</h2>
+
+  <h2 style={title}>파이프라인</h2> 
   <PipelineBars
     delay={pipelines.batchDelay}
     batch={pipelines.batchSize}
@@ -64,5 +66,7 @@ export default function App() {
     </div>
   );
 }
+
+//카드/타이틀 스타일 공통 정의
 const card  = { background:"#fff", border:"1px solid #e5e7eb", borderRadius:16, padding:18, boxShadow:"0 1px 2px rgba(0,0,0,.03)" };
 const title = { fontSize:16, fontWeight:700, marginBottom:12 };
